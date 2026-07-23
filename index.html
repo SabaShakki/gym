@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>باشگاه هانی</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- فونت وزیرمتن -->
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body, h1, h2, h3, h4, h5, h6, p, span, a, button, li {
+    font-family: 'Vazirmatn', sans-serif !important;
+  }
+  .typing {
+    white-space: pre-line;
+    overflow: hidden;
+  }
+</style>
+
+<style>
+  /* تنظیمات پایه ریسپانسیو و RTL */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, h1, h2, h3, h4, h5, h6, p, span, a, button, li, input, textarea {
+    font-family: 'Vazirmatn', sans-serif !important;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* بهبود تایپینگ برای موبایل */
+  .typing {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  
+  /* گالری ریسپانسیو داینامیک */
+  @media (max-width: 768px) {
+    .gallery {
+      display: flex !important;
+      flex-direction: column !important;
+      height: auto !important;
+      gap: 1rem !important;
+    }
+    .gallery > div {
+      height: 280px !important;
+      row-span: unset !important;
+    }
+  }
+  
+  /* تصاویر خدمات در موبایل */
+  @media (max-width: 640px) {
+    .services img {
+      height: 200px !important;
+    }
+    .services > div {
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  /* فرم ثبت نام در موبایل */
+  @media (max-width: 640px) {
+    #signup-form {
+      transform: scale(0.98) !important;
+      padding: 1.5rem !important;
+    }
+    #signup-form input {
+      padding: 0.8rem 1rem !important;
+      font-size: 0.9rem !important;
+    }
+    #signup-form button {
+      padding: 0.8rem !important;
+      font-size: 1rem !important;
+    }
+  }
+  
+  /* هدر ریسپانسیو */
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 2rem !important;
+      line-height: 1.3 !important;
+    }
+    .hero-text {
+      font-size: 0.9rem !important;
+      padding: 0 0.5rem !important;
+    }
+    .hero-btn {
+      padding: 0.6rem 1.5rem !important;
+      font-size: 0.9rem !important;
+    }
+  }
+  
+  /* بخش درباره باشگاه */
+  @media (max-width: 768px) {
+    .max-w-5xl {
+      margin: 0 1rem !important;
+      padding: 1.5rem !important;
+    }
+    .max-w-5xl h2 {
+      font-size: 2.2rem !important;
+    }
+    .max-w-5xl p {
+      font-size: 0.95rem !important;
+      text-align: justify !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .max-w-5xl h2 {
+      font-size: 1.8rem !important;
+    }
+    .max-w-5xl p {
+      font-size: 0.85rem !important;
+      line-height: 1.5 !important;
+    }
+  }
+  
+  /* فوتر ریسپانسیو */
+  @media (max-width: 768px) {
+    footer .grid {
+      gap: 2rem !important;
+      text-align: center !important;
+    }
+    footer h3 {
+      font-size: 1.2rem !important;
+    }
+    footer li {
+      font-size: 0.8rem !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    footer {
+      padding: 2rem 1rem !important;
+    }
+    footer .container {
+      padding: 0 0.5rem !important;
+    }
+  }
+  
+  /* عکس مربی در موبایل */
+  @media (max-width: 640px) {
+    #coach-header img {
+      width: 100px !important;
+      height: 100px !important;
+    }
+    #coach-header h2 {
+      font-size: 1.8rem !important;
+    }
+    #coach-text {
+      font-size: 0.9rem !important;
+      padding: 0 1rem !important;
+    }
+  }
+  
+  /* گالری hover در موبایل غیرفعال شود */
+  @media (max-width: 768px) {
+    .gallery > div:hover {
+      transform: none !important;
+    }
+    .services > div:hover {
+      transform: none !important;
+    }
+  }
+  
+  /* ریسپانسیو برای بخش خدمات (grid به ستون یک در موبایل) */
+  @media (max-width: 768px) {
+    .services {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+      max-width: 95% !important;
+      margin: 0 auto !important;
+    }
+  }
+  
+  /* بهبود دکمه‌ها و فاصله‌ها در موبایل */
+  @media (max-width: 640px) {
+    section {
+      padding: 3rem 0.75rem !important;
+    }
+    .container {
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+    }
+    h2 {
+      font-size: 2rem !important;
+      margin-bottom: 1.5rem !important;
+    }
+  }
+  
+  /* افکت پارالاکس در موبایل غیرفعال شود برای عملکرد بهتر */
+  @media (max-width: 768px) {
+    #hero-bg {
+      transform: scale(1) !important;
+    }
+    [style*="mousemove"] {
+      transform: none !important;
+    }
+  }
+  
+  /* متن تایپینگ ریسپانسیو خط شکسته */
+  #coach-text {
+    white-space: pre-wrap;
+    direction: rtl;
+    unicode-bidi: plaintext;
+    font-size: clamp(0.9rem, 4vw, 1.125rem);
+    line-height: 1.6;
+    padding: 0 1rem;
+  }
+  
+  /* بهبود نمایش فرم‌ها */
+  input, button {
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    transform: scale(1.01);
+  }
+  
+  /* تصاویر خدمات و گالری کاملا ریسپانسیو */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* اسکرول افکت نرم */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  </style>
+</head>
+<body class="bg-light text-text-dark">
+
+<div class="relative min-h-screen w-full flex flex-col overflow-x-hidden">
+<main class="flex-grow">
+
+<!-- هدر -->
+<section id="hero" class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+  <div id="hero-bg" class="absolute inset-0 bg-cover bg-center scale-110 z-[-1]"
+       style="background-image:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=100');">
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
+  <div class="relative z-10 flex flex-col items-center gap-6 max-w-2xl">
+    <h1 class="hero-title text-4xl md:text-6xl font-extrabold leading-snug text-white drop-shadow-lg opacity-0">
+       به باشگاه سلامت خوش آمدید
+    </h1>
+    <p class="hero-text text-base md:text-lg font-light max-w-xl mt-2 text-white/90 leading-relaxed opacity-0">
+      جایی که ورزش با انگیزه، انرژی و تجهیزات مدرن ترکیب می‌شود.  
+      در <strong>باشگاه سلامت</strong>، هر لحظه یک قدم به سمت بهترین نسخه از خودتان خواهید بود.
+    </p>
+    <a href="#services" class="hero-btn px-6 py-3 bg-white/10 border border-white/30 rounded-xl text-white opacity-0">
+      مشاهده خدمات
+    </a>
+  </div>
+</section>
+
+<!-- معرفی مربی -->
+<section id="coach" class="py-20 bg-white">
+  <div class="container mx-auto px-4 text-center">
+    <!-- عکس و نام مربی -->
+    <div id="coach-header" class="mb-6 opacity-0 translate-y-20">
+      <img src="./هادی.jpg" alt="هادی چوپان" 
+           class="w-40 h-40 rounded-full mx-auto shadow-lg border-4 border-gray-200">
+      <h2 class="text-4xl font-extrabold mt-4">هادی چوپان</h2>
+    </div>
+    <!-- توضیحات تایپینگ -->
+    <p id="coach-text" class="text-lg text-gray-600 max-w-2xl mx-auto typing mt-4"></p>
+  </div>
+</section>
+
+<script>
+// متن مربی فارسی برای تایپ زنده
+const coachText = `بیش از 02 سال تجربه در حوزه بدنسازی، قهرمان کشور و مربی تخصصی
+با دانش و تجربه من می‌توانید به اوج تناسب اندام برسید.`;
+
+let i = 0;
+let typed = false;
+
+// انیمیشن ورود عکس و اسم مربی از پایین
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.fromTo("#coach-header", 
+  {opacity:0, y:50}, 
+  {
+    opacity:1, y:0, duration:1.2, ease:"power2.out",
+    scrollTrigger: {
+      trigger:"#coach",
+      start:"top 80%",
+      onEnter: () => {
+        if (!typed) {
+          typed = true;
+          typeWriter();
+        }
+      }
+    }
+  }
+);
+
+// تابع تایپینگ فارسی
+function typeWriter() {
+  if (i < coachText.length) {
+    const char = coachText.charAt(i);
+    document.getElementById("coach-text").innerHTML += (char === "\n") ? "<br>" : char;
+    i++;
+    setTimeout(typeWriter, 50);
+  }
+}
+</script>
+
+<style>
+#coach-text {
+  white-space: pre-wrap; /* حفظ فاصله‌ها و خطوط */
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  font-size: 1.125rem;
+  line-height: 1.8rem;
+  color: #4B5563; /* text-gray-600 */
+}
+.typing {
+  overflow: hidden;
+}
+</style>
+
+
+<!-- درباره باشگاه -->
+<section class="py-20 flex justify-center bg-white">
+  <div class="max-w-5xl w-full bg-gray-100 rounded-3xl shadow-2xl p-12 fade-section opacity-0 translate-y-10">
+    <h2 class="text-5xl font-bold mb-10 text-center text-text-dark">درباره باشگاه سلامت</h2>
+    <p class="text-lg md:text-xl text-text-muted leading-relaxed text-justify">
+      باشگاه سلامت با مدیریت <strong> هادی چوپان</strong> و بهره‌مندی از مربیان مجرب،  
+      محیطی متفاوت برای ورزشکاران فراهم کرده است.  
+      در این باشگاه می‌توانید از کلاس‌های گروهی پرانرژی، تمرینات شخصی‌سازی‌شده و تجهیزات مدرن بهره‌مند شوید.  
+      ما باور داریم که ورزش نه‌تنها جسم، بلکه ذهن شما را نیز توانمند می‌سازد.
+      <br/><br/>
+      علاوه بر برنامه‌های تمرینی تخصصی، در باشگاه سلامت مشاوره‌های تغذیه‌ای و برنامه‌های غذایی متناسب با هدف شما ارائه می‌شود.  
+      مربیان حرفه‌ای ما با آنالیز دقیق شرایط جسمانی، بهترین مسیر را برای دستیابی به تناسب اندام طراحی می‌کنند.  
+      همچنین استفاده از مکمل‌های استاندارد و مورد تأیید، با راهنمایی متخصصین، به شما کمک می‌کند تا روند پیشرفتتان سریع‌تر و اصولی‌تر باشد.  
+      فضای دوستانه و انگیزشی باشگاه، محیطی را فراهم می‌کند که هر فرد در هر سطحی از آمادگی جسمانی احساس راحتی کند.  
+      هدف نهایی ما این است که ورزش بخشی از سبک زندگی شما شود و سلامتی و نشاط پایدار را برایتان به ارمغان آورد.
+    </p>
+  </div>
+</section>
+
+<!-- گالری -->
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-5xl font-bold text-center mb-12 text-text-dark">گالری تصاویر باشگاه</h2>
+    <div class="gallery grid grid-cols-2 gap-4 max-w-5xl mx-auto h-[500px] opacity-0 translate-y-10">
+      <div class="row-span-2 rounded-2xl overflow-hidden shadow-lg hover:scale-[1.05] transition">
+        <img src="./bashs.jpg" alt="عکس بزرگ" class="w-full h-full object-cover">
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-lg hover:scale-[1.05] transition">
+        <img src="./basht.jpg" alt="عکس بالا" class="w-full h-full object-cover">
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-lg hover:scale-[1.05] transition">
+        <img src="./basha.jpg" alt="عکس پایین" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- خدمات -->
+<section id="services" class="py-20 bg-light">
+  <div class="container mx-auto px-4">
+    <h2 class="text-5xl font-bold text-center mb-12 text-text-dark">امکانات و خدمات</h2>
+    <div class="services grid grid-cols-1 md:grid-cols-3 gap-8 opacity-0">
+      <div class="bg-white rounded-2xl overflow-hidden shadow-xl p-4 hover:shadow-2xl transition">
+        <img alt="پرورش اندام" class="w-full h-56 object-cover rounded-xl" src="./a.jpg"/>
+        <h3 class="text-2xl font-bold mt-4 mb-2 text-text-dark">پرورش اندام</h3>
+        <p class="text-text-muted mb-4">با مربیان حرفه‌ای به بدنی ایده‌آل و متناسب برسید.</p>
+      </div>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-xl p-4 hover:shadow-2xl transition">
+        <img alt="ایروبیک" class="w-full h-56 object-cover rounded-xl" src="./bic.jpg"/>
+        <h3 class="text-2xl font-bold mt-4 mb-2 text-text-dark">ایروبیک</h3>
+        <p class="text-text-muted mb-4">کلاس‌های گروهی پرانرژی برای تقویت سلامت جسم و روح.</p>
+      </div>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-xl p-4 hover:shadow-2xl transition">
+        <img alt="تمرینات TRX" class="w-full h-56 object-cover rounded-xl" src="./trx.jpg"/>
+        <h3 class="text-2xl font-bold mt-4 mb-2 text-text-dark">تمرینات TRX</h3>
+        <p class="text-text-muted mb-4">افزایش قدرت، تعادل و انعطاف با تمرینات نوین TRX.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<!-- فرم ثبت‌نام و تماس با ما -->
+<!-- فرم ثبت‌نام ورزشکاران (حرفه‌ای، تنها) -->
+<section id="signup" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4 max-w-3xl opacity-0 translate-y-20" id="signup-container">
+    <h2 class="text-5xl font-bold text-center mb-12 text-gray-800">ثبت‌نام ورزشکاران</h2>
+    <p class="text-gray-600 mb-10 text-center text-lg">
+      آماده‌اید مسیر تناسب اندام خود را شروع کنید؟ اطلاعات خود را وارد کنید تا تیم ما با شما تماس بگیرد.
+    </p>
+    <div class="bg-gray-100 rounded-3xl shadow-lg p-10 hover:shadow-2xl transition transform hover:scale-105" id="signup-form">
+      <form class="space-y-5 flex flex-col">
+        <input type="text" placeholder="نام و نام خانوادگی" class="w-full rounded-xl p-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition"/>
+        <input type="email" placeholder="ایمیل" class="w-full rounded-xl p-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition"/>
+        <input type="tel" placeholder="شماره تماس" class="w-full rounded-xl p-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition"/>
+        <input type="text" placeholder="آدرس" class="w-full rounded-xl p-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition"/>
+        <button type="submit" class="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-4 rounded-2xl text-lg transition transform hover:scale-105 shadow-md">
+          ثبت‌نام
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+// GSAP انیمیشن حرفه‌ای فانتزی
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.fromTo("#signup-container",
+  {opacity:0, y:50, scale:0.95},
+  {
+    opacity:1,
+    y:0,
+    scale:1,
+    duration:1.2,
+    ease:"power4.out",
+    scrollTrigger:{
+      trigger:"#signup-container",
+      start:"top 80%",
+      toggleActions:"play none none none"
+    }
+  }
+);
+
+// کمی بounce هنگام ورود فرم
+gsap.from("#signup-form", {
+  scale:0.95,
+  y:20,
+  duration:1.2,
+  delay:0.2,
+  ease:"elastic.out(1,0.5)",
+  scrollTrigger:{
+    trigger:"#signup-container",
+    start:"top 80%",
+    toggleActions:"play none none none"
+  }
+});
+</script>
+
+
+<script>
+  // انیمیشن ورود فرم‌ها با ScrollTrigger
+  gsap.utils.toArray("#forms > .container > .grid > div").forEach((form, index) => {
+    gsap.from(form, {
+      scrollTrigger: {
+        trigger: form,
+        start: "top 80%",
+        toggleActions: "play none none none"
+      },
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      delay: index * 0.2,
+      ease: "power3.out"
+    });
+  });
+  </script>
+  
+<!-- فوتر -->
+<footer class="bg-gray-900 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-secondary">باشگاه هانی</h3>
+        <p>سفر تناسب اندام شما از همین‌جا آغاز می‌شود.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-secondary">برنامه کلاس‌ها</h3>
+        <ul class="space-y-2 text-sm md:text-base">
+          <li>بانوان: یکشنبه، سه‌شنبه، پنجشنبه (۹ صبح تا ۱۲ ظهر)</li>
+          <li>آقایان: شنبه، دوشنبه، چهارشنبه (۶ عصر تا ۹ شب)</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-secondary">تماس با ما</h3>
+        <ul class="space-y-2 text-sm md:text-base">
+          <li>علی آباد کتول، چهار راه جنگلده </li>
+          <li>۰۲۱-۱۲۳۴۵۶۷۸</li>
+          <li>esfandyari.abolfazl59</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 border-t border-gray-700 pt-8 text-center text-sm text-gray-400">
+      <p>© 2025 باشگاه هانی. تمامی حقوق محفوظ است.</p>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+// GSAP Header Animation
+gsap.timeline()
+  .from("#hero-bg", {scale:1.3, duration:2, ease:"power2.out"})
+  .to(".hero-title", {opacity:1, y:-20, scale:1.1, duration:1, ease:"back.out(1.7)"}, "-=1.5")
+  .to(".hero-text", {opacity:1, y:-15, duration:1, ease:"power2.out"}, "-=1.0")
+  .to(".hero-btn", {opacity:1, y:-10, scale:1.05, duration:1, ease:"elastic.out(1,0.5)"}, "-=0.8")
+  .to(".hero-btn", {scale:1.1, repeat:-1, yoyo:true, duration:1.2, ease:"power1.inOut"});
+
+// Scroll Animations
+gsap.utils.toArray(".fade-section, .gallery, .services").forEach(section => {
+  gsap.to(section, {
+    scrollTrigger: {trigger: section, start: "top 80%"},
+    opacity: 1, y: 0, duration: 1, ease: "power2.out", stagger:0.2
+  });
+});
+
+// Parallax Effect
+document.addEventListener("mousemove", e => {
+  let x = (e.clientX / window.innerWidth - 0.5) * 20;
+  let y = (e.clientY / window.innerHeight - 0.5) * 20;
+  gsap.to("#hero-bg", {x:x, y:y, duration:0.6, ease:"power2.out"});
+});
+
+
+
+function typeWriter() {
+  if (i < coachText.length) {
+    document.getElementById("coach-text").innerHTML += coachText.charAt(i);
+    i++;
+    setTimeout(typeWriter, 50);
+  }
+}
+</script>
+</body>
+</html>
